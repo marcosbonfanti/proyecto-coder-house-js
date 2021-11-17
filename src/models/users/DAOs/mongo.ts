@@ -26,6 +26,10 @@ const usersSchema = new mongoose.Schema<UserI>({
     type: String,
     required: true,
   },
+  cellphone: {
+    type: String,
+    required: true,
+  },
 });
 
 usersSchema.pre('save', async function (next) {

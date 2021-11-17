@@ -13,6 +13,12 @@ const venv = {
   SESSION_COOKIE_TIMEOUT_MIN: parseInt(
     process.env.SESSION_COOKIE_TIMEOUT_MIN || '10'
   ),
+  ADMIN_NAME: process.env.ADMIN_NAME || 'admin',
+  ADMIN_EMAIL: process.env.ADMIN_EMAIL || 'admin@admin.com',
+  ADMIN_EMAIL_PASSWORD: process.env.ADMIN_EMAIL_PASSWORD || 'p@55w0rd',
+  TWILIO_ACCOUNT_ID: process.env.TWILIO_ACCOUNT_ID || 'twilioId',
+  TWILIO_TOKEN: process.env.TWILIO_TOKEN || 'twilioToken',
+  TWILIO_CELLPHONE: process.env.TWILIO_CELLPHONE || '+123456789',  
 };
 
 export default venv;

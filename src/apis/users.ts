@@ -2,6 +2,10 @@ import { NewUserI, UserI, UserQuery } from '../models/users/users.interface';
 import { UserFactoryDAO } from '../models/users/users.factory';
 import { TipoPersistencia } from '../models/users/users.factory';
 import { CartAPI } from './carts';
+import { EmailService } from '../services/email';
+import { loggers } from 'winston';
+import { Logger } from '../services/logger';
+import { SmsService } from '../services/twilio';
 /**
  * Con esta variable elegimos el tipo de persistencia
  */
@@ -22,7 +26,33 @@ class User {
 
   async addUser(productData: NewUserI): Promise<UserI> {
     const newUser = await this.users.add(productData);
+    const content = `${newUser.firstName} ${newUser.lastName} se ha registrado correctamente`
     await CartAPI.createCart(newUser._id);
+
+    try {
+      const response = await EmailService.sendEmail(
+        newUser.email,
+        "Registro Exitoso",
+        content
+      );
+      Logger.info(`${newUser.email} Se ha registrado correctamente`); 
+      
+    } catch (err) {
+      Logger.error(`Error al enviar el mail ${newUser.email} -> ${err}`); 
+    }
+
+    try {
+      const response = await SmsService.sendMessage(
+        newUser.cellphone,
+        "Registro Exitoso"
+      );
+  
+      Logger.info(`Se  mando el sms: ${response}`); 
+    } catch (err) {
+      Logger.error(`Error al enviar sms ${newUser.email} -> ${err}`);
+    }
+
+
     return newUser;
   }
 

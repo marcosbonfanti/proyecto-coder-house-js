@@ -34,7 +34,11 @@ class User {
   }
 
   async deleteUser(req: Request, res: Response) {
-    res.json({ msg: 'DELETE USER' });
+    const id = req.params.id;
+    await UserAPI.deleteUser(id);
+    res.json({
+      msg: 'Usuario borrado',
+    });
   }
 }
 
