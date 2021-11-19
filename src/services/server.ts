@@ -8,6 +8,8 @@ import passport from '../middleware/admin';
 import apiRouter from '../routes/index';
 import { Logger } from './logger';
 import { loggers } from 'winston';
+import { graphqlHTTP } from 'express-graphql';
+import { graphQLMainSchema } from './graphql';
 
 const StoreOptions = {
   store: MongoStore.create({
@@ -28,6 +30,14 @@ app.use(session(StoreOptions));
 
 const publicFolderPath = path.resolve(__dirname, '../../public');
 app.use(express.static(publicFolderPath));
+
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema: graphQLMainSchema,
+    graphiql: true,
+  })
+);
 
 app.use(express.json());
 
