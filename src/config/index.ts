@@ -18,7 +18,8 @@ const venv = {
   ADMIN_EMAIL_PASSWORD: process.env.ADMIN_EMAIL_PASSWORD || 'p@55w0rd',
   TWILIO_ACCOUNT_ID: process.env.TWILIO_ACCOUNT_ID || 'twilioId',
   TWILIO_TOKEN: process.env.TWILIO_TOKEN || 'twilioToken',
-  TWILIO_CELLPHONE: process.env.TWILIO_CELLPHONE || '+123456789',  
+  TWILIO_CELLPHONE: process.env.TWILIO_CELLPHONE || '+123456789',
+  MONGO_LOCAL_URL: process.env.MONGO_LOCAL_URL || 'mongoLocal'
 };
 
 export default venv;
